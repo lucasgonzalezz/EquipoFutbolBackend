@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import net.ausiasmarch.equipo_futbol.entity.EquipoEntity;
 import net.ausiasmarch.equipo_futbol.service.EquipoService;
@@ -24,7 +25,7 @@ public class EquipoApi {
     @Autowired
     EquipoService oEquipoService; // Inyección de dependencias
 
-    @GetMapping("{/id}") // Obtener un equipo mediante su id
+    @GetMapping("/{id}") // Obtener un equipo mediante su id
     public ResponseEntity<EquipoEntity> get(@PathVariable("id") Long id) {
         return ResponseEntity.ok(oEquipoService.get(id));
     }
@@ -34,22 +35,22 @@ public class EquipoApi {
         return ResponseEntity.ok(oEquipoService.create(oEquipoEntity));
     }
 
-    @PutMapping("")
+    @PutMapping("") // Actualiza un equipo
     public ResponseEntity<EquipoEntity> update(@RequestBody EquipoEntity oEquipoEntity) {
         return ResponseEntity.ok(oEquipoService.update(oEquipoEntity));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{id}") // Elimina un equipo a partir de su id
     public ResponseEntity<Long> delete(@PathVariable("id") Long id) {
         return ResponseEntity.ok(oEquipoService.delete(id));
     }
 
-    @GetMapping("")
+    @GetMapping("") // ?
     public ResponseEntity<Page<EquipoEntity>> getPage(Pageable oPageable) {
         return ResponseEntity.ok(oEquipoService.getPage(oPageable));
     }
 
-    @PostMapping("/populate/{amount}")
+    @PostMapping("/populate/{amount}") // ?
     public ResponseEntity<Long> populate(@PathVariable("amount") Integer amount) {
         return ResponseEntity.ok(oEquipoService.populate(amount));
     }
