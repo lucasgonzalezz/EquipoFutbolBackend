@@ -1,0 +1,51 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "fox-forum2",
+    "dateExported": "2023-11-06T19:04:35.158Z",
+    "version": "1.1",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "634ede51-8563-44e1-8cbc-1e6b1bcb3e39",
+            "colId": "e40c003a-270d-4eb5-ae4c-1745e53181d5",
+            "containerId": "",
+            "name": "DeleteEquipo",
+            "url": "http://localhost:8083/equipo/1",
+            "method": "DELETE",
+            "sortNum": 10000,
+            "created": "2023-11-06T17:23:37.993Z",
+            "modified": "2023-11-06T18:50:08.882Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "94193c6a-f223-47e9-93f4-1da7b7abfb4c",
+            "colId": "e40c003a-270d-4eb5-ae4c-1745e53181d5",
+            "containerId": "",
+            "name": "DeleteJugador",
+            "url": "http://localhost:8083/jugador/1",
+            "method": "DELETE",
+            "sortNum": 20000,
+            "created": "2023-11-06T17:23:37.994Z",
+            "modified": "2023-11-06T18:50:44.403Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "80223810-7bcc-42be-ae90-70e93ea0fdcd",
+            "colId": "e40c003a-270d-4eb5-ae4c-1745e53181d5",
+            "containerId": "",
+            "name": "DeleteMiembroCuerpoTecnico",
+            "url": "http://localhost:8083/miembroCuerpoTecnico/1",
+            "method": "DELETE",
+            "sortNum": 30000,
+            "created": "2023-11-06T17:23:37.995Z",
+            "modified": "2023-11-06T18:51:00.522Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        }
+    ]
+}

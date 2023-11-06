@@ -1,0 +1,282 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "fox-forum",
+    "dateExported": "2023-11-06T19:03:39.270Z",
+    "version": "1.1",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "cb96f76a-1d91-4e1f-8c84-914b2bdcb83e",
+            "colId": "649f2955-7030-4998-87c3-2721130e49c6",
+            "containerId": "",
+            "name": "GetEquipo",
+            "url": "http://localhost:8083/equipo/1",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2023-11-06T17:23:37.985Z",
+            "modified": "2023-11-06T17:23:57.274Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "0a0529f9-492f-4511-8ec2-f02870eea97a",
+            "colId": "649f2955-7030-4998-87c3-2721130e49c6",
+            "containerId": "",
+            "name": "GetJugador",
+            "url": "http://localhost:8083/jugador/1",
+            "method": "GET",
+            "sortNum": 12500,
+            "created": "2023-11-06T17:23:37.990Z",
+            "modified": "2023-11-06T17:24:44.985Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "65f66fa6-f108-4a90-ad6a-cfd570cf58ba",
+            "colId": "649f2955-7030-4998-87c3-2721130e49c6",
+            "containerId": "",
+            "name": "GetMiembroCuerpoTecnico",
+            "url": "http://localhost:8083/miembroCuerpoTecnico/1",
+            "method": "GET",
+            "sortNum": 13750,
+            "created": "2023-11-06T17:23:37.991Z",
+            "modified": "2023-11-06T17:25:28.804Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "ea61dfab-f43d-4720-b8e4-8b8ab5a913c3",
+            "colId": "649f2955-7030-4998-87c3-2721130e49c6",
+            "containerId": "",
+            "name": "GetAllEquipos",
+            "url": "http://localhost:8083/equipo?page=0&size=10",
+            "method": "GET",
+            "sortNum": 15000,
+            "created": "2023-11-06T17:23:37.989Z",
+            "modified": "2023-11-06T17:26:26.810Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "page",
+                    "value": "0",
+                    "isPath": false
+                },
+                {
+                    "name": "size",
+                    "value": "10",
+                    "isPath": false
+                }
+            ],
+            "tests": []
+        },
+        {
+            "_id": "716b7333-a6bd-46b2-85ec-ea3890012379",
+            "colId": "649f2955-7030-4998-87c3-2721130e49c6",
+            "containerId": "",
+            "name": "GetAllJugadores",
+            "url": "http://localhost:8083/jugador?page=1&size=3",
+            "method": "GET",
+            "sortNum": 17500,
+            "created": "2023-11-06T17:23:37.992Z",
+            "modified": "2023-11-06T17:28:38.919Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "page",
+                    "value": "1",
+                    "isPath": false
+                },
+                {
+                    "name": "size",
+                    "value": "3",
+                    "isPath": false
+                }
+            ],
+            "tests": []
+        },
+        {
+            "_id": "b10d09d9-a8b6-479e-8474-a685f769fd25",
+            "colId": "649f2955-7030-4998-87c3-2721130e49c6",
+            "containerId": "",
+            "name": "GetAllMiembroCuerpoTecnico",
+            "url": "http://localhost:8083/miembroCuerpoTecnico?page=1&size=3",
+            "method": "GET",
+            "sortNum": 18750,
+            "created": "2023-11-06T17:23:37.993Z",
+            "modified": "2023-11-06T17:31:19.747Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "page",
+                    "value": "1",
+                    "isPath": false
+                },
+                {
+                    "name": "size",
+                    "value": "3",
+                    "isPath": false
+                }
+            ],
+            "tests": []
+        },
+        {
+            "_id": "8d316217-a56a-4cfe-8af4-2c08d9ec157a",
+            "colId": "649f2955-7030-4998-87c3-2721130e49c6",
+            "containerId": "",
+            "name": "InsertEquipo",
+            "url": "http://localhost:8083/equipo",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2023-11-06T17:23:37.986Z",
+            "modified": "2023-11-06T17:43:26.002Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"nombre\": \"Real Betis Balompié\",\n  \"ciudad\": \"Sevilla\",\n  \"año_fundacion\": \"1907-09-12\",\n  \"estadio\": \"Estadio Benito Villamarín\",\n  \"liga\": \"La Liga\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "25c13536-4e11-4a8c-8ba0-d754addd5aac",
+            "colId": "649f2955-7030-4998-87c3-2721130e49c6",
+            "containerId": "",
+            "name": "InsertJugador",
+            "url": "http://localhost:8083/jugador",
+            "method": "POST",
+            "sortNum": 22500,
+            "created": "2023-11-06T17:23:37.994Z",
+            "modified": "2023-11-06T18:34:53.038Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\r\n  \"nombre\": \"Carlos\",\r\n  \"apellido\": \"Gómez\",\r\n  \"fecha_nacimiento\": \"1975-08-10\",\r\n  \"posicion\": \"Defensa\",\r\n  \"nacionalidad\": \"Español\",\r\n  \"equipo\": {\r\n    \"id\": 1\r\n  }\r\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "228d69c8-88ff-492c-8a88-ee99fa56bd0a",
+            "colId": "649f2955-7030-4998-87c3-2721130e49c6",
+            "containerId": "",
+            "name": "InsertMiembroCuerpoTecnico",
+            "url": "http://localhost:8083/miembroCuerpoTecnico",
+            "method": "POST",
+            "sortNum": 23750,
+            "created": "2023-11-06T17:23:37.996Z",
+            "modified": "2023-11-06T18:32:51.587Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\r\n  \"nombre\": \"Carlos\",\r\n  \"apellido\": \"Gómez\",\r\n  \"fecha_nacimiento\": \"1975-08-10\",\r\n  \"nacionalidad\": \"Español\",\r\n  \"titulo\": \"Licenciado en Entrenamiento Deportivo\",\r\n  \"equipo\": {\r\n    \"id\": 1\r\n  }\r\n}\r\n",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "49d6e584-98d7-42c1-9c2c-026cf03fa643",
+            "colId": "649f2955-7030-4998-87c3-2721130e49c6",
+            "containerId": "",
+            "name": "InsertMoreEquipos",
+            "url": "http://localhost:8083/equipo/populate/10",
+            "method": "POST",
+            "sortNum": 25000,
+            "created": "2023-11-06T17:23:37.988Z",
+            "modified": "2023-11-06T18:53:04.302Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "dd35a8f0-5a00-41ef-9657-4f52c85838b0",
+            "colId": "649f2955-7030-4998-87c3-2721130e49c6",
+            "containerId": "",
+            "name": "InsertMoreThreads",
+            "url": "http://localhost:8083/jugador/populate/10",
+            "method": "POST",
+            "sortNum": 27500,
+            "created": "2023-11-06T17:23:37.997Z",
+            "modified": "2023-11-06T18:37:44.468Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "bb2ce0b3-6236-4a4b-a5fe-03dbba98e1ee",
+            "colId": "649f2955-7030-4998-87c3-2721130e49c6",
+            "containerId": "",
+            "name": "InsertMoreReplies",
+            "url": "http://localhost:8083/reply/populate/13",
+            "method": "POST",
+            "sortNum": 28750,
+            "created": "2023-11-06T17:23:37.998Z",
+            "modified": "2023-11-06T17:23:37.998Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "0d526786-ffa8-4ffb-aae0-7f3c36fa67d0",
+            "colId": "649f2955-7030-4998-87c3-2721130e49c6",
+            "containerId": "",
+            "name": "UpdateEquipo",
+            "url": "http://localhost:8083/equipo",
+            "method": "PUT",
+            "sortNum": 30000,
+            "created": "2023-11-06T17:23:37.987Z",
+            "modified": "2023-11-06T18:49:45.736Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"id\": \"1\",\n  \"nombre\": \"Real Betis Balompié B\",\n  \"ciudad\": \"Sevilla\",\n  \"año_fundacion\": \"1907-09-12\",\n  \"estadio\": \"Estadio Benito Villamarín\",\n  \"liga\": \"La Liga Hypemotion\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "5ca3cc1d-2c90-4cf1-b26c-ff89b8bfc3eb",
+            "colId": "649f2955-7030-4998-87c3-2721130e49c6",
+            "containerId": "",
+            "name": "UpdateJugador",
+            "url": "http://localhost:8083/jugador",
+            "method": "PUT",
+            "sortNum": 35000,
+            "created": "2023-11-06T17:23:37.999Z",
+            "modified": "2023-11-06T18:49:09.031Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"id\": \"1\",\n  \"nombre\": \"Pepe\",\n  \"apellido\": \"López\",\n  \"fecha_nacimiento\": \"1975-08-10\",\n  \"posicion\": \"Delantero\",\n  \"nacionalidad\": \"Español\",\n  \"equipo\": {\n    \"id\": 2\n  }\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "e1a9c0af-3a00-459a-8bb7-824435fc2292",
+            "colId": "649f2955-7030-4998-87c3-2721130e49c6",
+            "containerId": "",
+            "name": "UpdateMiembroCuerpoTecnico",
+            "url": "http://localhost:8083/miembroCuerpoTecnico",
+            "method": "PUT",
+            "sortNum": 37500,
+            "created": "2023-11-06T17:23:38.000Z",
+            "modified": "2023-11-06T18:48:34.311Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"id\": \"1\",\n  \"nombre\": \"Carlos\",\n  \"apellido\": \"Gómez\",\n  \"fecha_nacimiento\": \"1975-08-10\",\n  \"nacionalidad\": \"Español\",\n  \"titulo\": \"Licenciado en Entrenamiento Deportivo\",\n  \"equipo\": {\n    \"id\": 1\n  }\n}\n",
+                "form": []
+            },
+            "tests": []
+        }
+    ]
+}

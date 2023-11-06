@@ -51,6 +51,9 @@ public class MiembroCuerpoTecnicoEntity {
     @JoinColumn(name = "id_equipo")
     private EquipoEntity equipo;
 
+    public MiembroCuerpoTecnicoEntity() {
+    }
+
     public MiembroCuerpoTecnicoEntity(Long id, String nombre, String apellido, Date fecha_nacimiento,
             String nacionalidad, String titulo, EquipoEntity equipo) {
         this.id = id;

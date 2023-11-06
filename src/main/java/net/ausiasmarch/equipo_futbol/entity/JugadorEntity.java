@@ -51,6 +51,9 @@ public class JugadorEntity {
     @JoinColumn(name = "id_equipo")
     private EquipoEntity equipo;
 
+    public JugadorEntity() {
+    }
+
     public JugadorEntity(Long id, String nombre, String apellido, Date fecha_nacimiento, String posicion,
             String nacionalidad, EquipoEntity equipo) {
         this.id = id;
