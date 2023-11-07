@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.Date;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import net.ausiasmarch.equipo_futbol.entity.EquipoEntity;
 import net.ausiasmarch.equipo_futbol.entity.JugadorEntity;
 import net.ausiasmarch.equipo_futbol.repository.JugadorRepository;
 import net.ausiasmarch.equipo_futbol.exception.ResourceNotFoundException;
@@ -15,6 +16,9 @@ public class JugadorService {
     
     @Autowired
     JugadorRepository oJugadorRepository;
+
+    @Autowired
+    EquipoService oEquipoService;
 
     public JugadorEntity get(Long id) {
         return oJugadorRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Jugador not found"));
@@ -38,9 +42,17 @@ public class JugadorService {
         return oJugadorRepository.findAll(oPageable);
     }
 
-    public Long populate(Integer amount) {
+     public Long populate(Integer amount) {
         for (int i = 0; i < amount; i++) {
-            oJugadorRepository.save(new JugadorEntity("nombre" + i, "apellido" + i, new Date(), "posicion" + i, "nacionalidad"));
+            String nombre = "Nombre" + i;
+            String apellido = "Apellido" + i;
+            Date fechaNacimiento = new Date(); // Aquí debes definir una fecha de nacimiento adecuada
+            String posicion = "Posición" + i;
+            String nacionalidad = "Nacionalidad" + i;
+            EquipoEntity equipo = oEquipoService.getOneRandom(); // Debes definir cómo obtener un equipo aleatorio
+
+            JugadorEntity jugador = new JugadorEntity(nombre, apellido, fechaNacimiento, posicion, nacionalidad, equipo);
+            oJugadorRepository.save(jugador);
         }
         return oJugadorRepository.count();
     }

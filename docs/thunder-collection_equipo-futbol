@@ -1,7 +1,7 @@
 {
     "client": "Thunder Client",
-    "collectionName": "fox-forum",
-    "dateExported": "2023-11-06T19:03:39.270Z",
+    "collectionName": "equipo-futbol",
+    "dateExported": "2023-11-07T13:32:30.734Z",
     "version": "1.1",
     "folders": [],
     "requests": [
@@ -10,11 +10,11 @@
             "colId": "649f2955-7030-4998-87c3-2721130e49c6",
             "containerId": "",
             "name": "GetEquipo",
-            "url": "http://localhost:8083/equipo/1",
+            "url": "http://localhost:8083/equipo/2",
             "method": "GET",
             "sortNum": 10000,
             "created": "2023-11-06T17:23:37.985Z",
-            "modified": "2023-11-06T17:23:57.274Z",
+            "modified": "2023-11-07T12:49:46.355Z",
             "headers": [],
             "params": [],
             "tests": []
@@ -24,11 +24,11 @@
             "colId": "649f2955-7030-4998-87c3-2721130e49c6",
             "containerId": "",
             "name": "GetJugador",
-            "url": "http://localhost:8083/jugador/1",
+            "url": "http://localhost:8083/jugador/2",
             "method": "GET",
             "sortNum": 12500,
             "created": "2023-11-06T17:23:37.990Z",
-            "modified": "2023-11-06T17:24:44.985Z",
+            "modified": "2023-11-07T12:49:50.164Z",
             "headers": [],
             "params": [],
             "tests": []
@@ -38,11 +38,11 @@
             "colId": "649f2955-7030-4998-87c3-2721130e49c6",
             "containerId": "",
             "name": "GetMiembroCuerpoTecnico",
-            "url": "http://localhost:8083/miembroCuerpoTecnico/1",
+            "url": "http://localhost:8083/miembroCuerpoTecnico/2",
             "method": "GET",
             "sortNum": 13750,
             "created": "2023-11-06T17:23:37.991Z",
-            "modified": "2023-11-06T17:25:28.804Z",
+            "modified": "2023-11-07T12:49:53.575Z",
             "headers": [],
             "params": [],
             "tests": []
@@ -150,12 +150,12 @@
             "method": "POST",
             "sortNum": 22500,
             "created": "2023-11-06T17:23:37.994Z",
-            "modified": "2023-11-06T18:34:53.038Z",
+            "modified": "2023-11-07T12:58:49.468Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\r\n  \"nombre\": \"Carlos\",\r\n  \"apellido\": \"Gómez\",\r\n  \"fecha_nacimiento\": \"1975-08-10\",\r\n  \"posicion\": \"Defensa\",\r\n  \"nacionalidad\": \"Español\",\r\n  \"equipo\": {\r\n    \"id\": 1\r\n  }\r\n}",
+                "raw": "{\n  \"nombre\": \"Carlos\",\n  \"apellido\": \"Gómez\",\n  \"fecha_nacimiento\": \"1975-08-10\",\n  \"posicion\": \"Defensa\",\n  \"nacionalidad\": \"Español\",\n  \"equipo\": {\n    \"id\": 65\n  }\n}",
                 "form": []
             },
             "tests": []
@@ -169,12 +169,12 @@
             "method": "POST",
             "sortNum": 23750,
             "created": "2023-11-06T17:23:37.996Z",
-            "modified": "2023-11-06T18:32:51.587Z",
+            "modified": "2023-11-07T12:59:02.679Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\r\n  \"nombre\": \"Carlos\",\r\n  \"apellido\": \"Gómez\",\r\n  \"fecha_nacimiento\": \"1975-08-10\",\r\n  \"nacionalidad\": \"Español\",\r\n  \"titulo\": \"Licenciado en Entrenamiento Deportivo\",\r\n  \"equipo\": {\r\n    \"id\": 1\r\n  }\r\n}\r\n",
+                "raw": "{\n  \"nombre\": \"Carlos\",\n  \"apellido\": \"Gómez\",\n  \"fecha_nacimiento\": \"1975-08-10\",\n  \"nacionalidad\": \"Español\",\n  \"titulo\": \"Licenciado en Entrenamiento Deportivo\",\n  \"equipo\": {\n    \"id\": 65\n  }\n}\n",
                 "form": []
             },
             "tests": []
@@ -197,7 +197,7 @@
             "_id": "dd35a8f0-5a00-41ef-9657-4f52c85838b0",
             "colId": "649f2955-7030-4998-87c3-2721130e49c6",
             "containerId": "",
-            "name": "InsertMoreThreads",
+            "name": "InsertMoreJugadores",
             "url": "http://localhost:8083/jugador/populate/10",
             "method": "POST",
             "sortNum": 27500,
@@ -211,12 +211,12 @@
             "_id": "bb2ce0b3-6236-4a4b-a5fe-03dbba98e1ee",
             "colId": "649f2955-7030-4998-87c3-2721130e49c6",
             "containerId": "",
-            "name": "InsertMoreReplies",
-            "url": "http://localhost:8083/reply/populate/13",
+            "name": "InsertMoreMiembroCuerpoTecnico",
+            "url": "http://localhost:8083/miembroCuerpoTecnico/populate/10",
             "method": "POST",
             "sortNum": 28750,
             "created": "2023-11-06T17:23:37.998Z",
-            "modified": "2023-11-06T17:23:37.998Z",
+            "modified": "2023-11-07T13:25:45.520Z",
             "headers": [],
             "params": [],
             "tests": []
@@ -268,12 +268,12 @@
             "method": "PUT",
             "sortNum": 37500,
             "created": "2023-11-06T17:23:38.000Z",
-            "modified": "2023-11-06T18:48:34.311Z",
+            "modified": "2023-11-07T12:50:47.050Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"id\": \"1\",\n  \"nombre\": \"Carlos\",\n  \"apellido\": \"Gómez\",\n  \"fecha_nacimiento\": \"1975-08-10\",\n  \"nacionalidad\": \"Español\",\n  \"titulo\": \"Licenciado en Entrenamiento Deportivo\",\n  \"equipo\": {\n    \"id\": 1\n  }\n}\n",
+                "raw": "{\n  \"id\": \"3\",\n  \"nombre\": \"Carlos\",\n  \"apellido\": \"Gómez\",\n  \"fecha_nacimiento\": \"1975-08-10\",\n  \"nacionalidad\": \"Español\",\n  \"titulo\": \"Licenciado en Entrenamiento Deportivo\",\n  \"equipo\": {\n    \"id\": 3\n  }\n}\n",
                 "form": []
             },
             "tests": []
