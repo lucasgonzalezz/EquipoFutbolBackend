@@ -1,7 +1,7 @@
 {
     "client": "Thunder Client",
     "collectionName": "equipo-futbol2",
-    "dateExported": "2023-11-07T13:32:53.604Z",
+    "dateExported": "2023-11-07T19:09:06.625Z",
     "version": "1.1",
     "folders": [],
     "requests": [
@@ -10,11 +10,11 @@
             "colId": "e40c003a-270d-4eb5-ae4c-1745e53181d5",
             "containerId": "",
             "name": "DeleteEquipo",
-            "url": "http://localhost:8083/equipo/2",
+            "url": "http://localhost:8083/equipo/68",
             "method": "DELETE",
             "sortNum": 10000,
             "created": "2023-11-06T17:23:37.993Z",
-            "modified": "2023-11-07T12:50:05.693Z",
+            "modified": "2023-11-07T19:07:46.742Z",
             "headers": [],
             "params": [],
             "tests": []
@@ -45,6 +45,25 @@
             "modified": "2023-11-07T12:50:12.937Z",
             "headers": [],
             "params": [],
+            "tests": []
+        },
+        {
+            "_id": "24ea884f-be1a-473b-a8c2-646498e36e8b",
+            "colId": "e40c003a-270d-4eb5-ae4c-1745e53181d5",
+            "containerId": "",
+            "name": "Session",
+            "url": "http://localhost:8083/session",
+            "method": "POST",
+            "sortNum": 40000,
+            "created": "2023-11-07T18:08:42.695Z",
+            "modified": "2023-11-07T18:09:00.691Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"username\": \"betis\",\n  \"password\": \"e2cac5c5f7e52ab03441bb70e89726ddbd1f6e5b683dde05fb65e0720290179e\"\n}",
+                "form": []
+            },
             "tests": []
         }
     ]

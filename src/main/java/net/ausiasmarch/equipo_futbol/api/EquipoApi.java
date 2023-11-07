@@ -45,14 +45,21 @@ public class EquipoApi {
         return ResponseEntity.ok(oEquipoService.delete(id));
     }
 
-    @GetMapping("") // ?
+    @GetMapping("") // Muestra una cantidad concreta de equipos
     public ResponseEntity<Page<EquipoEntity>> getPage(Pageable oPageable) {
         return ResponseEntity.ok(oEquipoService.getPage(oPageable));
     }
 
-    @PostMapping("/populate/{amount}") // ?
+    @PostMapping("/populate/{amount}") // Crea una cantidad específica de equipos tomando como parámetro "amount"
     public ResponseEntity<Long> populate(@PathVariable("amount") Integer amount) {
         return ResponseEntity.ok(oEquipoService.populate(amount));
     }
+
+    /*
+     * @DeleteMapping("/empty") // Elimina todos los equipos de la base de datos.
+     * public ResponseEntity<Long> empty() {
+     * return ResponseEntity.ok(oEquipoService.empty());
+     * }
+     */
 
 }

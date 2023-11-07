@@ -46,14 +46,23 @@ public class MiembroCuerpoTecnicoApi {
         return ResponseEntity.ok(oMiembroCuerpoTecnicoService.delete(id));
     }
 
-    @GetMapping("") // ?
+    @GetMapping("") // Muestra una cantidad concreta de Miembros del Cuerpo Tecnico
     public ResponseEntity<Page<MiembroCuerpoTecnicoEntity>> getPage(Pageable oPageable) {
         return ResponseEntity.ok(oMiembroCuerpoTecnicoService.getPage(oPageable));
     }
 
-    @PostMapping("/populate/{amount}") // ?
+    @PostMapping("/populate/{amount}") // Crea una cantidad específica de Miembros del Cuerpo Tecnico tomando como
+                                       // parámetro "amount"
     public ResponseEntity<Long> populate(@PathVariable("amount") Integer amount) {
         return ResponseEntity.ok(oMiembroCuerpoTecnicoService.populate(amount));
     }
+
+    /*
+     * @DeleteMapping("/empty") // Elimina todos los Miembros del Cuerpo Tecnico de
+     * la base de datos
+     * public ResponseEntity<Long> empty() {
+     * return ResponseEntity.ok(oMiembroCuerpoTecnicoService.empty());
+     * }
+     */
 
 }

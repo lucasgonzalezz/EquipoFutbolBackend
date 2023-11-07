@@ -8,7 +8,9 @@ import jakarta.persistence.Temporal;
 import jakarta.persistence.GeneratedValue;
 import jakarta.validation.constraints.Size;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.NotBlank;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Date;
 import java.util.List;
@@ -48,6 +50,21 @@ public class EquipoEntity {
     @Size(min = 3, max = 255)
     private String liga;
 
+    @NotNull
+    @NotBlank
+    @Size(min=6, max=15)
+    @Pattern(regexp = "^[a-zA-Z0-9]+$", message = "Username must be alphanumeric")
+    private String username;
+   
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @NotNull
+    @NotBlank
+    @Size(min=64, max=64)
+    @Pattern(regexp = "^[a-fA-F0-9]+$", message = "Password must be hexadecimal")
+    private String password = "e2cac5c5f7e52ab03441bb70e89726ddbd1f6e5b683dde05fb65e0720290179e";        
+   
+    private Boolean role = false;
+
     @OneToMany(mappedBy = "equipo", fetch = jakarta.persistence.FetchType.LAZY)
     private List<JugadorEntity> jugadores;
 
@@ -59,21 +76,34 @@ public class EquipoEntity {
         miembrosCuerpoTecnico = new ArrayList<>();
     }
 
-    public EquipoEntity(Long id, String nombre, String ciudad, Date año_fundacion, String estadio, String liga) {
+    public EquipoEntity(Long id, String nombre, String ciudad, Date año_fundacion, String estadio, String liga, String username, String password,
+    Boolean role) {
         this.id = id;
         this.nombre = nombre;
         this.ciudad = ciudad;
         this.año_fundacion = año_fundacion;
         this.estadio = estadio;
         this.liga = liga;
+        this.username = username;
+        this.password = password;
+        this.role = role;
     }
 
-    public EquipoEntity(String nombre, String ciudad, Date año_fundacion, String estadio, String liga) {
+    public EquipoEntity(String nombre, String ciudad, Date año_fundacion, String estadio, String liga, String username, String password,
+    Boolean role) {
         this.nombre = nombre;
         this.ciudad = ciudad;
         this.año_fundacion = año_fundacion;
         this.estadio = estadio;
         this.liga = liga;
+        this.username = username;
+        this.password = password;
+        this.role = role;
+    }
+
+    public EquipoEntity(String username, String password) {
+        this.username = username;
+        this.password = password;
     }
 
     public Long getId() {
@@ -122,6 +152,38 @@ public class EquipoEntity {
 
     public void setLiga(String liga) {
         this.liga = liga;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Boolean getRole() {
+        return role;
+    }
+
+    public void setRole(Boolean role) {
+        this.role = role;
+    }
+
+    public int getJugadores() {
+        return jugadores.size();
+    }
+
+    public int getMiembrosCuerpoTecnico() {
+        return miembrosCuerpoTecnico.size();
     }
 
 }

@@ -46,14 +46,21 @@ public class JugadorApi {
         return ResponseEntity.ok(oJugadorService.delete(id));
     }
 
-    @GetMapping("") // ?
+    @GetMapping("") // Muestra una cantidad concreta de jugadores
     public ResponseEntity<Page<JugadorEntity>> getPage(Pageable oPageable) {
         return ResponseEntity.ok(oJugadorService.getPage(oPageable));
     }
 
-    @PostMapping("/populate/{amount}") // ?
+    @PostMapping("/populate/{amount}") // Crea una cantidad específica de jugadores tomando como parámetro "amount"
     public ResponseEntity<Long> populate(@PathVariable("amount") Integer amount) {
         return ResponseEntity.ok(oJugadorService.populate(amount));
     }
-    
+
+    /*
+     * @DeleteMapping("/empty") // Elimina todos los jugadores de la base de datos
+     * public ResponseEntity<Long> empty() {
+     * return ResponseEntity.ok(oJugadorService.empty());
+     * }
+     */
+
 }
