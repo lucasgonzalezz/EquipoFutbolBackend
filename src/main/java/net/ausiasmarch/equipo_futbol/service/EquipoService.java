@@ -80,7 +80,7 @@ public class EquipoService {
                 .orElseThrow(() -> new ResourceNotFoundException("Equipo not found"));
         if (Boolean.FALSE.equals(oEquipoEntity.getRole())) {
             for (int i = 0; i < amount; i++) {
-                String nombre = DataGenerationHelper.getRadomName();
+                String nombre = DataGenerationHelper.getRadomTeamName();
                 String ciudad = DataGenerationHelper.getRadomCity(); // Reemplaza getRadomSurname() con getRadomCity()
                 Date añoFundacion = DataGenerationHelper.getRandomYear(); // Genera una fecha aleatoria como año de fundación
                 String estadio = DataGenerationHelper.getRandomStadium(); // Genera un nombre aleatorio para el estadio

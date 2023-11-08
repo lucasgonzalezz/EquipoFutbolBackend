@@ -1,16 +1,62 @@
 package net.ausiasmarch.equipo_futbol.helper;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 public class DataGenerationHelper {
 
-    private static final String[] aNames = {
-            "Lionel Messi", "Cristiano Ronaldo", "Neymar Jr.", "Kylian Mbappé", "Robert Lewandowski",
-            "Mohamed Salah", "Sergio Ramos", "Virgil van Dijk", "Luka Modrić", "Sadio Mané",
-            "Karim Benzema", "Kevin De Bruyne", "Erling Haaland", "Harry Kane", "Antoine Griezmann", "Paul Pogba"
+    private static final String[] aPlayerNames = {
+            "Lionel", "Cristiano", "Neymar", "Kylian", "Mohamed",
+            "Robert", "Sergio", "Kevin", "Luka", "Virgil",
+            "Harry", "Erling", "Karim", "Marco", "Antoine", "Paul"
+    };
+
+    private static final String[] aCuerpoTecnicoNames = {
+            "José", "Pep", "Jürgen", "Zinedine", "Diego",
+            "Mauricio", "Ernesto", "Carlo", "Ole", "Thomas",
+            "Marcelo", "Antonio", "Rafa", "Simone", "Lucien", "Roberto"
+    };
+
+    private static final String[] aPlayerSurnames = {
+            "Messi", "Ronaldo", "Neymar", "Mbappé", "Salah",
+            "Lewandowski", "Ramos", "De Bruyne", "Modrić", "Van Dijk",
+            "Kane", "Haaland", "Benzema", "Reus", "Griezmann", "Pogba"
+    };
+
+    private static final String[] aCuerpoTecnicoSurnames = {
+            "García", "Mourinho", "Klopp", "Zidane", "Simeone",
+            "Pochettino", "Valverde", "Ancelotti", "Solskjær", "Tuchel",
+            "Bielsa", "Conte", "Benítez", "Inzaghi", "Favre", "Martínez"
+    };
+
+    private static final String[] aCuerpoTecnicoTitles = {
+            "Entrenador", "Asistente Técnico", "Preparador Físico", "Fisioterapeuta", "Analista Táctico",
+            "Médico Deportivo", "Psicólogo Deportivo", "Nutricionista", "Entrenador de Porteros", "Scout",
+            "Fisioterapeuta Deportivo", "Kinesiólogo", "Psicoterapeuta", "Nutricionista Deportivo",
+            "Entrenador de Juveniles", "Especialista en Rehabilitación"
+    };
+
+    private static final String[] aPlayerPositions = {
+            "DEL", "SD", "EI", "ED", "MI", "MD",
+            "CM", "CAM", "CDM", "DFC", "LD", "LI", "CAD", "CAI", "POR"
+    };
+
+    private static final String[] oEquipoNames = {
+            "Real Madrid", "FC Barcelona", "Manchester United", "Liverpool FC", "Bayern Munich",
+            "Paris Saint-Germain", "Chelsea FC", "Manchester City", "Juventus", "AC Milan",
+            "Borussia Dortmund", "Arsenal FC", "Tottenham Hotspur", "Inter Milan", "Atletico Madrid", "Ajax Amsterdam"
+    };
+
+    private static final String[] aCountries = {
+            "España", "Francia", "Italia", "Alemania", "Reino Unido",
+            "Portugal", "Grecia", "Suecia", "Países Bajos", "Bélgica",
+            "Suiza", "Austria", "Polonia", "Rusia", "Croacia", "Turquía",
+            "México", "Argentina", "Brasil", "Chile",
+            "Canadá", "Estados Unidos", "Australia", "Nueva Zelanda", "China",
+            "Japón", "Corea del Sur", "India", "Sudáfrica", "Egipto",
+            "Marruecos", "Túnez", "Argelia", "Nigeria", "Kenia"
     };
 
     private static final String[] aCities = {
@@ -24,13 +70,13 @@ public class DataGenerationHelper {
     };
 
     private static final Date[] aDates = {
-        parseDate("2013-11-06"), parseDate("2014-05-15"), parseDate("2015-09-23"),
-        parseDate("2016-03-10"), parseDate("2017-08-29"), parseDate("2018-02-14"),
-        parseDate("2019-06-01"), parseDate("2020-12-07"), parseDate("2021-04-18"),
-        parseDate("2022-10-25")
+            parseDate("2013-11-06"), parseDate("2014-05-15"), parseDate("2015-09-23"),
+            parseDate("2016-03-10"), parseDate("2017-08-29"), parseDate("2018-02-14"),
+            parseDate("2019-06-01"), parseDate("2020-12-07"), parseDate("2021-04-18"),
+            parseDate("2022-10-25")
     };
 
-        private static Date parseDate(String dateString) {
+    private static Date parseDate(String dateString) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         try {
             return dateFormat.parse(dateString);
@@ -53,8 +99,36 @@ public class DataGenerationHelper {
             "Liga MX"
     };
 
-    public static String getRadomName() {
-        return aNames[(int) (Math.random() * aNames.length)];
+    public static String getRadomPlayerName() {
+        return aPlayerNames[(int) (Math.random() * aPlayerNames.length)];
+    }
+
+    public static String getRadomPlayerSurname() {
+        return aPlayerSurnames[(int) (Math.random() * aPlayerSurnames.length)];
+    }
+
+    public static String getRadomCuerpoTecnicoName() {
+        return aCuerpoTecnicoNames[(int) (Math.random() * aCuerpoTecnicoNames.length)];
+    }
+
+    public static String getRadomRadomCuerpoTecnicoSurname() {
+        return aCuerpoTecnicoSurnames[(int) (Math.random() * aCuerpoTecnicoSurnames.length)];
+    }
+
+    public static String getRadomRadomCuerpoTecnicoTitle() {
+        return aCuerpoTecnicoTitles[(int) (Math.random() * aCuerpoTecnicoTitles.length)];
+    }
+
+    public static String getRadomPlayerPosition() {
+        return aPlayerPositions[(int) (Math.random() * aPlayerPositions.length)];
+    }
+
+    public static String getRadomCountry() {
+        return aCountries[(int) (Math.random() * aCountries.length)];
+    }
+
+    public static String getRadomTeamName() {
+        return oEquipoNames[(int) (Math.random() * oEquipoNames.length)];
     }
 
     public static String getRadomCity() {
@@ -83,8 +157,10 @@ public class DataGenerationHelper {
         return cadenaSinAcentos;
     }
 
+    
     private static Random random = new Random();
 
+    /* 
     // Define arrays for different word categories
     private static String[] articles = { "the", "a", "one" };
     private static String[] nouns = { "cat", "dog", "book", "birds", "sun", "sandwich", "friend", "car", "house" };
@@ -161,5 +237,6 @@ public class DataGenerationHelper {
         }
         return sentences;
     }
+    */
 
 }

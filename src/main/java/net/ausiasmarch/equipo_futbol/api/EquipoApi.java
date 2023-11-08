@@ -55,11 +55,9 @@ public class EquipoApi {
         return ResponseEntity.ok(oEquipoService.populate(amount));
     }
 
-    /*
-     * @DeleteMapping("/empty") // Elimina todos los equipos de la base de datos.
-     * public ResponseEntity<Long> empty() {
-     * return ResponseEntity.ok(oEquipoService.empty());
-     * }
-     */
+    @DeleteMapping("/empty") // Elimina todos los equipos de la base de datos.
+    public ResponseEntity<Long> empty() {
+        return ResponseEntity.ok(oEquipoService.empty());
+    }
 
 }

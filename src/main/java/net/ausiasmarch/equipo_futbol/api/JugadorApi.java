@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import org.springframework.data.domain.Page;
@@ -46,9 +47,10 @@ public class JugadorApi {
         return ResponseEntity.ok(oJugadorService.delete(id));
     }
 
-    @GetMapping("") // Muestra una cantidad concreta de jugadores
-    public ResponseEntity<Page<JugadorEntity>> getPage(Pageable oPageable) {
-        return ResponseEntity.ok(oJugadorService.getPage(oPageable));
+    @GetMapping("") // Muestra una cantidad concreta de Miembros del Cuerpo Tecnico
+    public ResponseEntity<Page<JugadorEntity>> getPage(Pageable oPageable,
+            @RequestParam(value = "equipo", defaultValue = "0", required = false) Long equipoId) {
+        return ResponseEntity.ok(oJugadorService.getPage(oPageable, equipoId));
     }
 
     @PostMapping("/populate/{amount}") // Crea una cantidad específica de jugadores tomando como parámetro "amount"
@@ -56,11 +58,9 @@ public class JugadorApi {
         return ResponseEntity.ok(oJugadorService.populate(amount));
     }
 
-    /*
-     * @DeleteMapping("/empty") // Elimina todos los jugadores de la base de datos
-     * public ResponseEntity<Long> empty() {
-     * return ResponseEntity.ok(oJugadorService.empty());
-     * }
-     */
+    @DeleteMapping("/empty") // Elimina todos los jugadores de la base de datos
+    public ResponseEntity<Long> empty() {
+        return ResponseEntity.ok(oJugadorService.empty());
+    }
 
 }

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import org.springframework.data.domain.Page;
@@ -47,22 +48,19 @@ public class MiembroCuerpoTecnicoApi {
     }
 
     @GetMapping("") // Muestra una cantidad concreta de Miembros del Cuerpo Tecnico
-    public ResponseEntity<Page<MiembroCuerpoTecnicoEntity>> getPage(Pageable oPageable) {
-        return ResponseEntity.ok(oMiembroCuerpoTecnicoService.getPage(oPageable));
+    public ResponseEntity<Page<MiembroCuerpoTecnicoEntity>> getPage(Pageable oPageable,
+            @RequestParam(value = "equipo", defaultValue = "0", required = false) Long equipoId) {
+        return ResponseEntity.ok(oMiembroCuerpoTecnicoService.getPage(oPageable, equipoId));
     }
 
-    @PostMapping("/populate/{amount}") // Crea una cantidad específica de Miembros del Cuerpo Tecnico tomando como
-                                       // parámetro "amount"
+    @PostMapping("/populate/{amount}") // Crea una cantidad específica de Miembros del Cuerpo Tecnico tomando como parámetro "amount"
     public ResponseEntity<Long> populate(@PathVariable("amount") Integer amount) {
         return ResponseEntity.ok(oMiembroCuerpoTecnicoService.populate(amount));
     }
 
-    /*
-     * @DeleteMapping("/empty") // Elimina todos los Miembros del Cuerpo Tecnico de
-     * la base de datos
-     * public ResponseEntity<Long> empty() {
-     * return ResponseEntity.ok(oMiembroCuerpoTecnicoService.empty());
-     * }
-     */
+    @DeleteMapping("/empty") // Elimina todos los Miembros del Cuerpo Tecnico de la base de datos
+    public ResponseEntity<Long> empty() {
+        return ResponseEntity.ok(oMiembroCuerpoTecnicoService.empty());
+    }
 
 }
