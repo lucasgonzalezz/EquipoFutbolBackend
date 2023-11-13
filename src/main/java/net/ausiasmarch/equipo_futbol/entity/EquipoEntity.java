@@ -38,7 +38,7 @@ public class EquipoEntity {
 
     @Temporal(TemporalType.DATE)
     @NotNull
-    private Date año_fundacion;
+    private Date ano_fundacion;
 
     @NotNull
     @NotBlank
@@ -76,12 +76,12 @@ public class EquipoEntity {
         miembrosCuerpoTecnico = new ArrayList<>();
     }
 
-    public EquipoEntity(Long id, String nombre, String ciudad, Date año_fundacion, String estadio, String liga, String username, String password,
+    public EquipoEntity(Long id, String nombre, String ciudad, Date ano_fundacion, String estadio, String liga, String username, String password,
     Boolean role) {
         this.id = id;
         this.nombre = nombre;
         this.ciudad = ciudad;
-        this.año_fundacion = año_fundacion;
+        this.ano_fundacion = ano_fundacion;
         this.estadio = estadio;
         this.liga = liga;
         this.username = username;
@@ -89,11 +89,11 @@ public class EquipoEntity {
         this.role = role;
     }
 
-    public EquipoEntity(String nombre, String ciudad, Date año_fundacion, String estadio, String liga, String username, String password,
+    public EquipoEntity(String nombre, String ciudad, Date ano_fundacion, String estadio, String liga, String username, String password,
     Boolean role) {
         this.nombre = nombre;
         this.ciudad = ciudad;
-        this.año_fundacion = año_fundacion;
+        this.ano_fundacion = ano_fundacion;
         this.estadio = estadio;
         this.liga = liga;
         this.username = username;
@@ -131,11 +131,11 @@ public class EquipoEntity {
     }
 
     public Date getAño_fundacion() {
-        return año_fundacion;
+        return ano_fundacion;
     }
 
-    public void setAño_fundacion(Date año_fundacion) {
-        this.año_fundacion = año_fundacion;
+    public void setAño_fundacion(Date ano_fundacion) {
+        this.ano_fundacion = ano_fundacion;
     }
 
     public String getEstadio() {
