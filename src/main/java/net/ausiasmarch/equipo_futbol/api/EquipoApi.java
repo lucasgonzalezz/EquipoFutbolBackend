@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.data.domain.Pageable;
 import net.ausiasmarch.equipo_futbol.entity.EquipoEntity;
 import net.ausiasmarch.equipo_futbol.service.EquipoService;
 
@@ -28,6 +28,11 @@ public class EquipoApi {
     @GetMapping("/{id}") // Obtener un equipo mediante su id
     public ResponseEntity<EquipoEntity> get(@PathVariable("id") Long id) {
         return ResponseEntity.ok(oEquipoService.get(id));
+    }
+
+    @GetMapping("/byUsername/{username}")
+    public ResponseEntity<EquipoEntity> get(@PathVariable("username") String username) {
+        return ResponseEntity.ok(oEquipoService.getByUsername(username));
     }
 
     @PostMapping("") // Crea un nuevo equipo

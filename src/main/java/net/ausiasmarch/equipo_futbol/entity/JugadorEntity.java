@@ -3,16 +3,15 @@ package net.ausiasmarch.equipo_futbol.entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Temporal;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.GeneratedValue;
 import jakarta.validation.constraints.Size;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.NotBlank;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
-import java.util.Date;
-import jakarta.persistence.TemporalType;
+import java.time.LocalDate;
 import jakarta.persistence.GenerationType;
 
 @Entity
@@ -33,9 +32,8 @@ public class JugadorEntity {
     @Size(min = 3, max = 255)
     private String apellido;
 
-    @Temporal(TemporalType.DATE)
-    @NotNull
-    private Date fecha_nacimiento;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private LocalDate fecha_nacimiento;
 
     @NotNull
     @NotBlank
@@ -54,31 +52,31 @@ public class JugadorEntity {
     public JugadorEntity() {
     }
 
-    public JugadorEntity(Long id, String nombre, String apellido, Date fecha_nacimiento, String posicion,
+    public JugadorEntity(Long id, String nombre, String apellido, LocalDate fecha_nacimiento, String posicion,
             String nacionalidad, EquipoEntity equipo) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
-        this.fecha_nacimiento = fecha_nacimiento;
+        this.fecha_nacimiento = LocalDate.now();
         this.posicion = posicion;
         this.nacionalidad = nacionalidad;
         this.equipo = equipo;
     }
 
-    public JugadorEntity(String nombre, String apellido, Date fecha_nacimiento, String posicion, String nacionalidad,
+    public JugadorEntity(String nombre, String apellido, LocalDate fecha_nacimiento, String posicion, String nacionalidad,
             EquipoEntity equipo) {
         this.nombre = nombre;
         this.apellido = apellido;
-        this.fecha_nacimiento = fecha_nacimiento;
+        this.fecha_nacimiento = LocalDate.now();
         this.posicion = posicion;
         this.nacionalidad = nacionalidad;
         this.equipo = equipo;
     }
 
-    public JugadorEntity(String nombre, String apellido, Date fecha_nacimiento, String posicion, String nacionalidad) {
+    public JugadorEntity(String nombre, String apellido, LocalDate fecha_nacimiento, String posicion, String nacionalidad) {
         this.nombre = nombre;
         this.apellido = apellido;
-        this.fecha_nacimiento = fecha_nacimiento;
+        this.fecha_nacimiento = LocalDate.now();
         this.posicion = posicion;
         this.nacionalidad = nacionalidad;
     }
@@ -107,11 +105,11 @@ public class JugadorEntity {
         this.apellido = apellido;
     }
 
-    public Date getFecha_nacimiento() {
+    public LocalDate getFecha_nacimiento() {
         return fecha_nacimiento;
     }
 
-    public void setFecha_nacimiento(Date fecha_nacimiento) {
+    public void setFecha_nacimiento(LocalDate fecha_nacimiento) {
         this.fecha_nacimiento = fecha_nacimiento;
     }
 

@@ -9,10 +9,11 @@ import net.ausiasmarch.equipo_futbol.helper.JWTHelper;
 import net.ausiasmarch.equipo_futbol.entity.EquipoEntity;
 import net.ausiasmarch.equipo_futbol.repository.EquipoRepository;
 import net.ausiasmarch.equipo_futbol.exception.ResourceNotFoundException;
+import net.ausiasmarch.equipo_futbol.exception.UnauthorizedException;
 
 @Service
 public class SessionService {
- 
+
     @Autowired
     EquipoRepository oEquipoRepository;
 
@@ -21,75 +22,94 @@ public class SessionService {
 
     public String login(EquipoBean oEquipoBean) {
         oEquipoRepository.findByUsernameAndPassword(oEquipoBean.getUsername(), oEquipoBean.getPassword())
-                .orElseThrow(() -> new ResourceNotFoundException("Wrong Equipo or password"));
+                .orElseThrow(() -> new ResourceNotFoundException("Wrong User or password"));
         return JWTHelper.generateJWT(oEquipoBean.getUsername());
     }
 
-    public EquipoEntity getSessionEquipo() {
-        String strJWTusername = oHttpServletRequest.getAttribute("username").toString();
-        return oEquipoRepository.findByUsername(strJWTusername)
-                .orElseThrow(() -> new ResourceNotFoundException("Equipo not found"));
+    public String getSessionUsername() {
+        if (oHttpServletRequest.getAttribute("username") instanceof String) {
+            return oHttpServletRequest.getAttribute("username").toString();
+        } else {
+            return null;
+        }
+    }
+
+    public EquipoEntity getSessionUser() {
+        if (this.getSessionUsername() != null) {
+            return oEquipoRepository.findByUsername(this.getSessionUsername()).orElse(null);
+        } else {
+            return null;
+        }
     }
 
     public Boolean isSessionActive() {
-        String strJWTusername = oHttpServletRequest.getAttribute("username").toString();
-        return oEquipoRepository.findByUsername(strJWTusername).isPresent();
+        if (this.getSessionUsername() != null) {
+            return oEquipoRepository.findByUsername(this.getSessionUsername()).isPresent();
+        } else {
+            return false;
+        }
     }
 
     public Boolean isAdmin() {
-        String strJWTusername = oHttpServletRequest.getAttribute("username").toString();
-        EquipoEntity oEquipoEntityInSession = oEquipoRepository.findByUsername(strJWTusername)
-                .orElseThrow(() -> new ResourceNotFoundException("Equipo not found"));
-        return Boolean.FALSE.equals(oEquipoEntityInSession.getRole());
+        if (this.getSessionUsername() != null) {
+            EquipoEntity oEquipoEntityInSession = oEquipoRepository.findByUsername(this.getSessionUsername())
+                    .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+            return Boolean.FALSE.equals(oEquipoEntityInSession.getRole());
+        } else {
+            return false;
+        }
     }
 
-    public Boolean isEquipo() {
-        String strJWTusername = oHttpServletRequest.getAttribute("username").toString();
-        EquipoEntity oEquipoEntityInSession = oEquipoRepository.findByUsername(strJWTusername)
-                .orElseThrow(() -> new ResourceNotFoundException("Equipo not found"));
-        return Boolean.TRUE.equals(oEquipoEntityInSession.getRole());
+    public Boolean isUser() {
+        if (this.getSessionUsername() != null) {
+            EquipoEntity oEquipoEntityInSession = oEquipoRepository.findByUsername(this.getSessionUsername())
+                    .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+            return Boolean.TRUE.equals(oEquipoEntityInSession.getRole());
+        } else {
+            return false;
+        }
     }
 
     public void onlyAdmins() {
         if (!this.isAdmin()) {
-            throw new ResourceNotFoundException("Only admins can do this");
+            throw new UnauthorizedException("Only admins can do this");
         }
     }
 
-    public void onlyEquipos() {
-        if (!this.isEquipo()) {
-            throw new ResourceNotFoundException("Only users can do this");
+    public void onlyUsers() {
+        if (!this.isUser()) {
+            throw new UnauthorizedException("Only users can do this");
         }
     }
 
-    public void onlyAdminsOrEquipos() {
+    public void onlyAdminsOrUsers() {
         if (!this.isSessionActive()) {
-            throw new ResourceNotFoundException("Only admins or users can do this");
+            throw new UnauthorizedException("Only admins or users can do this");
         }
     }
 
-    public void onlyEquiposWithIisOwnData(Long id_equipo) {
-        if (!this.isEquipo()) {
-            throw new ResourceNotFoundException("Only users can do this");
+    public void onlyUsersWithIisOwnData(Long id_equipo) {
+        if (!this.isUser()) {
+            throw new UnauthorizedException("Only users can do this");
         }
-        if (!this.getSessionEquipo().getId().equals(id_equipo)) {
-            throw new ResourceNotFoundException("Only users can do this");
+        if (!this.getSessionUser().getId().equals(id_equipo)) {
+            throw new UnauthorizedException("Only users can do this");
         }
     }
 
-    public void onlyAdminsOrEquiposWithIisOwnData(Long id_equipo) {
+    public void onlyAdminsOrUsersWithIisOwnData(Long id_equipo) {
         if (this.isSessionActive()) {
             if (!this.isAdmin()) {
-                if (!this.isEquipo()) {
-                    throw new ResourceNotFoundException("Only admins or users can do this");
+                if (!this.isUser()) {
+                    throw new UnauthorizedException("Only admins or users can do this");
                 } else {
-                    if (!this.getSessionEquipo().getId().equals(id_equipo)) {
-                        throw new ResourceNotFoundException("Only admins or users with its own data can do this");
+                    if (!this.getSessionUser().getId().equals(id_equipo)) {
+                        throw new UnauthorizedException("Only admins or users with its own data can do this");
                     }
                 }
             }
         } else {
-            throw new ResourceNotFoundException("Only admins or users can do this");
+            throw new UnauthorizedException("Only admins or users can do this");
         }
     }
 

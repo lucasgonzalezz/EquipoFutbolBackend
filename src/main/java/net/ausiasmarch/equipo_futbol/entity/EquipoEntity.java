@@ -1,21 +1,20 @@
 package net.ausiasmarch.equipo_futbol.entity;
 
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Temporal;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.GeneratedValue;
 import jakarta.validation.constraints.Size;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.NotBlank;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.util.Date;
 import java.util.List;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import jakarta.persistence.TemporalType;
 import jakarta.persistence.GenerationType;
 
 @Entity
@@ -36,9 +35,8 @@ public class EquipoEntity {
     @Size(min = 3, max = 255)
     private String ciudad;
 
-    @Temporal(TemporalType.DATE)
-    @NotNull
-    private Date ano_fundacion;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private LocalDate ano_fundacion;
 
     @NotNull
     @NotBlank
@@ -52,17 +50,17 @@ public class EquipoEntity {
 
     @NotNull
     @NotBlank
-    @Size(min=6, max=15)
+    @Size(min = 6, max = 15)
     @Pattern(regexp = "^[a-zA-Z0-9]+$", message = "Username must be alphanumeric")
     private String username;
-   
+
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @NotNull
     @NotBlank
-    @Size(min=64, max=64)
+    @Size(min = 64, max = 64)
     @Pattern(regexp = "^[a-fA-F0-9]+$", message = "Password must be hexadecimal")
-    private String password = "e2cac5c5f7e52ab03441bb70e89726ddbd1f6e5b683dde05fb65e0720290179e";        
-   
+    private String password = "e2cac5c5f7e52ab03441bb70e89726ddbd1f6e5b683dde05fb65e0720290179e";
+
     private Boolean role = false;
 
     @OneToMany(mappedBy = "equipo", fetch = jakarta.persistence.FetchType.LAZY)
@@ -76,8 +74,9 @@ public class EquipoEntity {
         miembrosCuerpoTecnico = new ArrayList<>();
     }
 
-    public EquipoEntity(Long id, String nombre, String ciudad, Date ano_fundacion, String estadio, String liga, String username, String password,
-    Boolean role) {
+    public EquipoEntity(Long id, String nombre, String ciudad, LocalDate ano_fundacion, String estadio, String liga,
+            String username, String password,
+            Boolean role) {
         this.id = id;
         this.nombre = nombre;
         this.ciudad = ciudad;
@@ -89,8 +88,9 @@ public class EquipoEntity {
         this.role = role;
     }
 
-    public EquipoEntity(String nombre, String ciudad, Date ano_fundacion, String estadio, String liga, String username, String password,
-    Boolean role) {
+    public EquipoEntity(String nombre, String ciudad, LocalDate ano_fundacion, String estadio, String liga,
+            String username, String password,
+            Boolean role) {
         this.nombre = nombre;
         this.ciudad = ciudad;
         this.ano_fundacion = ano_fundacion;
@@ -130,11 +130,11 @@ public class EquipoEntity {
         this.ciudad = ciudad;
     }
 
-    public Date getAño_fundacion() {
+    public LocalDate getAno_fundacion() {
         return ano_fundacion;
     }
 
-    public void setAño_fundacion(Date ano_fundacion) {
+    public void setAno_fundacion(LocalDate ano_fundacion) {
         this.ano_fundacion = ano_fundacion;
     }
 

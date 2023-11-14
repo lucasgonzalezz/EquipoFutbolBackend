@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
+import java.time.LocalDate;
 import org.springframework.data.domain.Page;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.data.domain.Pageable;
@@ -31,6 +31,9 @@ public class JugadorService {
     @Autowired
     EquipoService oEquipoService;
 
+    @Autowired
+    SessionService oSessionService;
+
     public JugadorEntity get(Long id) {
         return oJugadorRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Jugador not found"));
     }
@@ -45,93 +48,64 @@ public class JugadorService {
 
     public Long create(JugadorEntity oJugadorEntity) {
         oJugadorEntity.setId(null);
-        String strJWTusername = oHttpServletRequest.getAttribute("username").toString();
-        EquipoEntity oEquipoEntityInSession = oEquipoRepository.findByUsername(strJWTusername)
-                .orElseThrow(() -> new ResourceNotFoundException("Equipo not found"));
-        if (Boolean.TRUE.equals(oEquipoEntityInSession.getRole())) {
-            oJugadorEntity.setEquipo(oEquipoEntityInSession);
+        oSessionService.onlyAdminsOrUsers();
+        if (oSessionService.isUser()) {
+            oJugadorEntity.setEquipo(oSessionService.getSessionUser());
             return oJugadorRepository.save(oJugadorEntity).getId();
         } else {
             return oJugadorRepository.save(oJugadorEntity).getId();
         }
     }
 
-    public JugadorEntity update(JugadorEntity oJugadorEntity) {
-        oJugadorEntity = oJugadorRepository.findById(oJugadorEntity.getId())
-                .orElseThrow(() -> new ResourceNotFoundException("Jugador not found"));
-        String strJWTusername = oHttpServletRequest.getAttribute("username").toString();
-        EquipoEntity oEquipoEntityInSession = oEquipoRepository.findByUsername(strJWTusername)
-                .orElseThrow(() -> new ResourceNotFoundException("Equipo not found"));
-        if (Boolean.TRUE.equals(oEquipoEntityInSession.getRole())) {
-            if (oJugadorEntity.getEquipo().getId().equals(oEquipoEntityInSession.getId())) {
-                return oJugadorRepository.save(oJugadorEntity);
+    public JugadorEntity update(JugadorEntity oJugadorEntityToSet) {
+        JugadorEntity oJugadorEntityFromDatabase = this.get(oJugadorEntityToSet.getId());
+        oSessionService.onlyAdminsOrUsersWithIisOwnData(oJugadorEntityFromDatabase.getEquipo().getId());
+        if (oSessionService.isUser()) {
+            if (oJugadorEntityToSet.getEquipo().getId().equals(oSessionService.getSessionUser().getId())) {
+                return oJugadorRepository.save(oJugadorEntityToSet);
             } else {
                 throw new ResourceNotFoundException("Unauthorized");
             }
         } else {
-            return oJugadorRepository.save(oJugadorEntity);
+            return oJugadorRepository.save(oJugadorEntityToSet);
         }
     }
 
     public Long delete(Long id) {
-        JugadorEntity oJugadorEntity = oJugadorRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Jugador not found"));
-        String strJWTusername = oHttpServletRequest.getAttribute("username").toString();
-        EquipoEntity oEquipoEntityInSession = oEquipoRepository.findByUsername(strJWTusername)
-                .orElseThrow(() -> new ResourceNotFoundException("Equipo not found"));
-        if (Boolean.TRUE.equals(oEquipoEntityInSession.getRole())) {
-            if (oJugadorEntity.getEquipo().getId().equals(oEquipoEntityInSession.getId())) {
-                oJugadorRepository.deleteById(id);
-                return id;
-            } else {
-                throw new ResourceNotFoundException("Unauthorized");
-            }
-        } else {
-            oJugadorRepository.deleteById(id);
-            return id;
-        }
+        JugadorEntity oJugadorEntityFromDatabase = this.get(id);
+        oSessionService.onlyAdminsOrUsersWithIisOwnData(oJugadorEntityFromDatabase.getEquipo().getId());
+        oJugadorRepository.deleteById(id);
+        return id;
     }
 
     public Long populate(Integer amount) {
-        String strJWTusername = oHttpServletRequest.getAttribute("username").toString();
-        EquipoEntity oEquipoEntityInSession = oEquipoRepository.findByUsername(strJWTusername)
-                .orElseThrow(() -> new ResourceNotFoundException("Equipo not found"));
-        if (Boolean.FALSE.equals(oEquipoEntityInSession.getRole())) {
-            for (int i = 0; i < amount; i++) {
-                String nombre = DataGenerationHelper.getRadomPlayerName();
-                String apellido = DataGenerationHelper.getRadomPlayerSurname();
-                Date fechaNacimiento = DataGenerationHelper.getRandomYear();
-                String posicion = DataGenerationHelper.getRadomPlayerPosition();
-                String nacionalidad = DataGenerationHelper.getRadomCountry();
-                EquipoEntity equipo = oEquipoService.getOneRandom();
-
-                oJugadorRepository
-                        .save(new JugadorEntity(nombre, apellido, fechaNacimiento, posicion, nacionalidad, equipo));
-            }
-            return oEquipoRepository.count();
-        } else {
-            throw new ResourceNotFoundException("Unauthorized");
+        oSessionService.onlyAdmins();
+        for (int i = 0; i < amount; i++) {
+            String nombre = DataGenerationHelper.getRadomPlayerName();
+            String apellido = DataGenerationHelper.getRadomPlayerSurname();
+            LocalDate fechaNacimiento = DataGenerationHelper.getRandomYear();
+            String posicion = DataGenerationHelper.getRadomPlayerPosition();
+            String nacionalidad = DataGenerationHelper.getRadomCountry();
+            EquipoEntity equipo = oEquipoService.getOneRandom();
+            oJugadorRepository
+                    .save(new JugadorEntity(nombre, apellido, fechaNacimiento, posicion, nacionalidad, equipo));
         }
+        return oEquipoRepository.count();
     }
 
     public JugadorEntity getOneRandom() {
+        oSessionService.onlyAdmins();
         Pageable oPageable = PageRequest.of((int) (Math.random() * oJugadorRepository.count()), 1);
         return oJugadorRepository.findAll(oPageable).getContent().get(0);
     }
 
     @Transactional
     public Long empty() {
-        String strJWTusername = oHttpServletRequest.getAttribute("username").toString();
-        EquipoEntity oEquipoEntityInSession = oEquipoRepository.findByUsername(strJWTusername)
-                .orElseThrow(() -> new ResourceNotFoundException("Equipo not found"));
-        if (Boolean.FALSE.equals(oEquipoEntityInSession.getRole())) {
-            oJugadorRepository.deleteAll();
-            oJugadorRepository.resetAutoIncrement();
-            oJugadorRepository.flush();
-            return oJugadorRepository.count();
-        } else {
-            throw new ResourceNotFoundException("Unauthorized");
-        }
+        oSessionService.onlyAdmins();
+        oJugadorRepository.deleteAll();
+        oJugadorRepository.resetAutoIncrement();
+        oJugadorRepository.flush();
+        return oJugadorRepository.count();
     }
 
 }

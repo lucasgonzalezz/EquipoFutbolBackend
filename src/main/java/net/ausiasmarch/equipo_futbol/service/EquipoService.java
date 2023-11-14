@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
+import java.time.LocalDate;
 import org.springframework.data.domain.Page;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.data.domain.Pageable;
@@ -17,108 +17,99 @@ import net.ausiasmarch.equipo_futbol.helper.DataGenerationHelper;
 @Service
 public class EquipoService {
 
+    private final String equipofutbolPASSWORD = "AA827BD694BD1418479BFEA6640C5EBC66863DCBA536203BA9C42ECD71A29336";
+
     @Autowired
     EquipoRepository oEquipoRepository;
 
     @Autowired
     HttpServletRequest oHttpServletRequest;
 
+    @Autowired
+    SessionService oSessionService;
+
     public EquipoEntity get(Long id) {
         return oEquipoRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Equipo not found"));
     }
 
+    public EquipoEntity getByUsername(String username) {
+        return oEquipoRepository.findByUsername(username)
+                .orElseThrow(() -> new ResourceNotFoundException("Equipo not found by username"));
+    }
+
     public Page<EquipoEntity> getPage(Pageable oPageable) {
+        oSessionService.onlyAdmins();
         return oEquipoRepository.findAll(oPageable);
     }
 
     public Long create(EquipoEntity oEquipoEntity) {
-        String strJWTusername = oHttpServletRequest.getAttribute("username").toString();
-        EquipoEntity oEquipoEntityInSession = oEquipoRepository.findByUsername(strJWTusername)
-                .orElseThrow(() -> new ResourceNotFoundException("Equipo not found"));
-        if (Boolean.FALSE.equals(oEquipoEntityInSession.getRole())) {
-            oEquipoEntity.setId(null);
-            oEquipoEntity.setPassword("e2cac5c5f7e52ab03441bb70e89726ddbd1f6e5b683dde05fb65e0720290179e");
-            return oEquipoRepository.save(oEquipoEntity).getId();
-        } else {
-            throw new ResourceNotFoundException("Unauthorized");
-        }
+        oSessionService.onlyAdmins();
+        oEquipoEntity.setId(null);
+        oEquipoEntity.setPassword(equipofutbolPASSWORD);
+        return oEquipoRepository.save(oEquipoEntity).getId();
     }
 
-    public EquipoEntity update(EquipoEntity oEquipoEntity) {
-        String strJWTusername = oHttpServletRequest.getAttribute("username").toString();
-        EquipoEntity oEquipoEntityInSession = oEquipoRepository.findByUsername(strJWTusername)
-                .orElseThrow(() -> new ResourceNotFoundException("Equipo not found"));
-        if (Boolean.FALSE.equals(oEquipoEntityInSession.getRole())) {
-            oEquipoEntity.setId(null);
-            oEquipoEntity.setPassword("e2cac5c5f7e52ab03441bb70e89726ddbd1f6e5b683dde05fb65e0720290179e");
-            return oEquipoRepository.save(oEquipoEntity);
+    public EquipoEntity update(EquipoEntity oEquipoEntityToSet) {
+        EquipoEntity oEquipoEntityFromDatabase = this.get(oEquipoEntityToSet.getId());
+        oSessionService.onlyAdminsOrUsersWithIisOwnData(oEquipoEntityFromDatabase.getId());
+        if (oSessionService.isUser()) {
+            oEquipoEntityToSet.setId(null);
+            oEquipoEntityToSet.setRole(oEquipoEntityFromDatabase.getRole());
+            oEquipoEntityToSet.setPassword(equipofutbolPASSWORD);
+            return oEquipoRepository.save(oEquipoEntityToSet);
         } else {
-            throw new ResourceNotFoundException("Unauthorized");
+            oEquipoEntityToSet.setId(null);
+            oEquipoEntityToSet.setPassword(equipofutbolPASSWORD);
+            return oEquipoRepository.save(oEquipoEntityToSet);
         }
     }
 
     public Long delete(Long id) {
-        String strJWTusername = oHttpServletRequest.getAttribute("username").toString();
-        EquipoEntity oEquipoEntityInSession = oEquipoRepository.findByUsername(strJWTusername)
-                .orElseThrow(() -> new ResourceNotFoundException("Equipo not found"));
-        if (Boolean.FALSE.equals(oEquipoEntityInSession.getRole())) {
-            oEquipoRepository.deleteById(id);
-            return id;
-        } else {
-            throw new ResourceNotFoundException("Unauthorized");
-        }
+        oSessionService.onlyAdmins();
+        oEquipoRepository.deleteById(id);
+        return id;
     }
 
     public EquipoEntity getOneRandom() {
+        oSessionService.onlyAdmins();
         Pageable oPageable = PageRequest.of((int) (Math.random() * oEquipoRepository.count()), 1);
         return oEquipoRepository.findAll(oPageable).getContent().get(0);
     }
 
     public Long populate(Integer amount) {
-        String strJWTusername = oHttpServletRequest.getAttribute("username").toString();
-        EquipoEntity oEquipoEntity = oEquipoRepository.findByUsername(strJWTusername)
-                .orElseThrow(() -> new ResourceNotFoundException("Equipo not found"));
-        if (Boolean.FALSE.equals(oEquipoEntity.getRole())) {
-            for (int i = 0; i < amount; i++) {
-                String nombre = DataGenerationHelper.getRadomTeamName();
-                String ciudad = DataGenerationHelper.getRadomCity(); // Reemplaza getRadomSurname() con getRadomCity()
-                Date añoFundacion = DataGenerationHelper.getRandomYear(); // Genera una fecha aleatoria como año de fundación
-                String estadio = DataGenerationHelper.getRandomStadium(); // Genera un nombre aleatorio para el estadio
-                String liga = DataGenerationHelper.getRandomLeague(); // Genera un nombre aleatorio para la liga
-                String username = DataGenerationHelper.doNormalizeString(
-                        nombre.substring(0, 3) + ciudad.substring(0, 3) + i);
-                String password = "e2cac5c5f7e52ab03441bb70e89726ddbd1f6e5b683dde05fb65e0720290179e";
-                Boolean role = true;
-                oEquipoRepository
-                        .save(new EquipoEntity(nombre, ciudad, añoFundacion, estadio, liga, username, password, role));
-            }
-            return oEquipoRepository.count();
-        } else {
-            throw new ResourceNotFoundException("Unauthorized");
+        oSessionService.onlyAdmins();
+        for (int i = 0; i < amount; i++) {
+            String nombre = DataGenerationHelper.getRadomTeamName();
+            String ciudad = DataGenerationHelper.getRadomCity(); // Reemplaza getRadomSurname() con getRadomCity()
+            LocalDate anoFundacion = DataGenerationHelper.getRandomYear(); // Genera una fecha aleatoria como año de fundación
+            String estadio = DataGenerationHelper.getRandomStadium(); // Genera un nombre aleatorio para el estadio
+            String liga = DataGenerationHelper.getRandomLeague(); // Genera un nombre aleatorio para la liga
+            String username = DataGenerationHelper.doNormalizeString(
+                    nombre.substring(0, 3) + ciudad.substring(0, 3) + i);
+            oEquipoRepository
+                    .save(new EquipoEntity(nombre, ciudad, anoFundacion, estadio, liga, username, equipofutbolPASSWORD,
+                            true));
         }
+        return oEquipoRepository.count();
     }
 
     @Transactional
     public Long empty() {
-        String strJWTusername = oHttpServletRequest.getAttribute("username").toString();
-        EquipoEntity oEquipoEntity = oEquipoRepository.findByUsername(strJWTusername)
-                .orElseThrow(() -> new ResourceNotFoundException("Equipo not found"));
-        if (Boolean.FALSE.equals(oEquipoEntity.getRole())) {
-            oEquipoRepository.deleteAll();
-            oEquipoRepository.resetAutoIncrement();
-            EquipoEntity equipo1 = new EquipoEntity("Real Madrid", "Madrid", new Date(), "Estadio Santiago Bernabéu",
-                    "La Liga", "realmadrid",
-                    "e2cac5c5f7e52ab03441bb70e89726ddbd1f6e5b683dde05fb65e0720290179e", true);
-            oEquipoRepository.save(equipo1);
+        oSessionService.onlyAdmins();
+        oEquipoRepository.deleteAll();
+        oEquipoRepository.resetAutoIncrement();
+        EquipoEntity equipo1 = new EquipoEntity(1L, "Real Madrid", "Madrid", LocalDate.of(1902, 03, 06),
+                "Estadio Santiago Bernabéu",
+                "La Liga", "realmadrid",
+                equipofutbolPASSWORD, false);
+        oEquipoRepository.save(equipo1);
 
-            EquipoEntity equipo2 = new EquipoEntity("FC Barcelona", "Barcelona", new Date(), "Camp Nou", "La Liga",
-                    "fcbarcelona",
-                    "e2cac5c5f7e52ab03441bb70e89726ddbd1f6e5b683dde05fb65e0720290179e", true);
-            oEquipoRepository.save(equipo2);
-            return oEquipoRepository.count();
-        } else {
-            throw new ResourceNotFoundException("Unauthorized");
-        }
+        EquipoEntity equipo2 = new EquipoEntity(2L, "FC Barcelona", "Barcelona", LocalDate.of(1899, 10, 22), "Camp Nou",
+                "La Liga",
+                "fcbarcelona",
+                equipofutbolPASSWORD, true);
+        oEquipoRepository.save(equipo2);
+        return oEquipoRepository.count();
     }
 
 }

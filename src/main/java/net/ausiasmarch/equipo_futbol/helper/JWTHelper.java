@@ -35,24 +35,28 @@ public class JWTHelper {
     }
 
     public static String validateJWT(String strJWT) {
-        Jws<Claims> headerClaimsJwt = Jwts.parserBuilder()
-                .setSigningKey(secretKey())
-                .build()
-                .parseClaimsJws(strJWT);
+        try {
+            Jws<Claims> headerClaimsJwt = Jwts.parserBuilder()
+                    .setSigningKey(secretKey())
+                    .build()
+                    .parseClaimsJws(strJWT);
 
-        Claims claims = headerClaimsJwt.getBody();
+            Claims claims = headerClaimsJwt.getBody();
 
-        if (claims.getExpiration().before(new Date())) {
+            if (claims.getExpiration().before(new Date())) {
+                return null;
+                // throw new JWTException("Error validating JWT: token expired");
+            }
+
+            if (!claims.getIssuer().equals(ISSUER)) {
+                return null;
+                // throw new JWTException("Error validating JWT: wrong issuer");
+            }
+
+            return claims.get("name", String.class);
+        } catch (Exception e) {
             return null;
-            //throw new JWTException("Error validating JWT: token expired");
         }
-
-        if (!claims.getIssuer().equals(ISSUER)) {
-            return null;
-            //throw new JWTException("Error validating JWT: wrong issuer");
-        }
-
-        return claims.get("name", String.class);
     }
 
 }
