@@ -53,12 +53,10 @@ public class EquipoService {
         EquipoEntity oEquipoEntityFromDatabase = this.get(oEquipoEntityToSet.getId());
         oSessionService.onlyAdminsOrUsersWithIisOwnData(oEquipoEntityFromDatabase.getId());
         if (oSessionService.isUser()) {
-            oEquipoEntityToSet.setId(null);
             oEquipoEntityToSet.setRole(oEquipoEntityFromDatabase.getRole());
             oEquipoEntityToSet.setPassword(equipofutbolPASSWORD);
             return oEquipoRepository.save(oEquipoEntityToSet);
         } else {
-            oEquipoEntityToSet.setId(null);
             oEquipoEntityToSet.setPassword(equipofutbolPASSWORD);
             return oEquipoRepository.save(oEquipoEntityToSet);
         }
