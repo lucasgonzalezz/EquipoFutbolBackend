@@ -90,7 +90,7 @@ public class JugadorService {
             oJugadorRepository
                     .save(new JugadorEntity(nombre, apellido, fechaNacimiento, posicion, nacionalidad, equipo));
         }
-        return oEquipoRepository.count();
+        return oJugadorRepository.count();
     }
 
     public JugadorEntity getOneRandom() {

@@ -51,7 +51,7 @@ public class EquipoEntity {
     @NotNull
     @NotBlank
     @Size(min = 6, max = 15)
-    @Pattern(regexp = "^[a-zA-Z0-9]+$", message = "Username must be alphanumeric")
+    //@Pattern(regexp = "^[a-zA-Z0-9]+$", message = "Username must be alphanumeric")
     private String username;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
