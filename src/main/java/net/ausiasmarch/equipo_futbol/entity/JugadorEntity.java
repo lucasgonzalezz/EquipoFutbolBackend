@@ -37,7 +37,7 @@ public class JugadorEntity {
 
     @NotNull
     @NotBlank
-    @Size(min = 3, max = 255)
+    @Size(min = 2, max = 3)
     private String posicion;
 
     @NotNull
