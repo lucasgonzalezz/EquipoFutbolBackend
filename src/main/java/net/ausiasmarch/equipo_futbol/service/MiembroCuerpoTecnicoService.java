@@ -92,7 +92,7 @@ public class MiembroCuerpoTecnicoService {
             oMiembroCuerpoTecnicoRepository.save(
                     new MiembroCuerpoTecnicoEntity(nombre, apellido, fechaNacimiento, nacionalidad, titulo, equipo));
         }
-        return oEquipoRepository.count();
+        return oMiembroCuerpoTecnicoRepository.count();
     }
 
     public MiembroCuerpoTecnicoEntity getOneRandom() {
