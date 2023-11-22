@@ -78,10 +78,10 @@ public class EquipoService {
         oSessionService.onlyAdmins();
         for (int i = 0; i < amount; i++) {
             String nombre = DataGenerationHelper.getRadomTeamName();
-            String ciudad = DataGenerationHelper.getRadomCity(); // Reemplaza getRadomSurname() con getRadomCity()
-            LocalDate anoFundacion = DataGenerationHelper.getRandomYear(); // Genera una fecha aleatoria como año de fundación
-            String estadio = DataGenerationHelper.getRandomStadium(); // Genera un nombre aleatorio para el estadio
-            String liga = DataGenerationHelper.getRandomLeague(); // Genera un nombre aleatorio para la liga
+            String ciudad = DataGenerationHelper.getRadomCity();
+            LocalDate anoFundacion = DataGenerationHelper.getRandomDate();
+            String estadio = DataGenerationHelper.getRandomStadium();
+            String liga = DataGenerationHelper.getRandomLeague();
             String username = DataGenerationHelper.doNormalizeString(
                     nombre.substring(0, 3) + ciudad.substring(0, 3) + i);
             oEquipoRepository

@@ -85,7 +85,7 @@ public class MiembroCuerpoTecnicoService {
         for (int i = 0; i < amount; i++) {
             String nombre = DataGenerationHelper.getRadomCuerpoTecnicoName();
             String apellido = DataGenerationHelper.getRadomRadomCuerpoTecnicoSurname();
-            LocalDate fechaNacimiento = DataGenerationHelper.getRandomYear();
+            LocalDate fechaNacimiento = DataGenerationHelper.getRandomDate();
             String nacionalidad = DataGenerationHelper.getRadomCountry();
             String titulo = DataGenerationHelper.getRadomRadomCuerpoTecnicoTitle();
             EquipoEntity equipo = oEquipoService.getOneRandom();

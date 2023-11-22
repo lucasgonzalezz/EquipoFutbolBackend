@@ -83,7 +83,7 @@ public class JugadorService {
         for (int i = 0; i < amount; i++) {
             String nombre = DataGenerationHelper.getRadomPlayerName();
             String apellido = DataGenerationHelper.getRadomPlayerSurname();
-            LocalDate fechaNacimiento = DataGenerationHelper.getRandomYear();
+            LocalDate fechaNacimiento = DataGenerationHelper.getRandomDate();
             String posicion = DataGenerationHelper.getRadomPlayerPosition();
             String nacionalidad = DataGenerationHelper.getRadomCountry();
             EquipoEntity equipo = oEquipoService.getOneRandom();

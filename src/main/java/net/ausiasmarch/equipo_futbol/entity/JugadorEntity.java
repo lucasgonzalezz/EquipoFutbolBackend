@@ -57,7 +57,7 @@ public class JugadorEntity {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
-        this.fecha_nacimiento = LocalDate.now();
+        this.fecha_nacimiento = fecha_nacimiento;
         this.posicion = posicion;
         this.nacionalidad = nacionalidad;
         this.equipo = equipo;
@@ -67,7 +67,7 @@ public class JugadorEntity {
             EquipoEntity equipo) {
         this.nombre = nombre;
         this.apellido = apellido;
-        this.fecha_nacimiento = LocalDate.now();
+        this.fecha_nacimiento = fecha_nacimiento;
         this.posicion = posicion;
         this.nacionalidad = nacionalidad;
         this.equipo = equipo;
@@ -76,7 +76,7 @@ public class JugadorEntity {
     public JugadorEntity(String nombre, String apellido, LocalDate fecha_nacimiento, String posicion, String nacionalidad) {
         this.nombre = nombre;
         this.apellido = apellido;
-        this.fecha_nacimiento = LocalDate.now();
+        this.fecha_nacimiento = fecha_nacimiento;
         this.posicion = posicion;
         this.nacionalidad = nacionalidad;
     }

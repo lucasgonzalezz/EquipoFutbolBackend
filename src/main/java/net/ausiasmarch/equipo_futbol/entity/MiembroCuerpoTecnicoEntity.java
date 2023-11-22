@@ -57,7 +57,7 @@ public class MiembroCuerpoTecnicoEntity {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
-        this.fecha_nacimiento = LocalDate.now();
+        this.fecha_nacimiento = fecha_nacimiento;
         this.nacionalidad = nacionalidad;
         this.titulo = titulo;
         this.equipo = equipo;
@@ -67,7 +67,7 @@ public class MiembroCuerpoTecnicoEntity {
             String titulo, EquipoEntity equipo) {
         this.nombre = nombre;
         this.apellido = apellido;
-        this.fecha_nacimiento = LocalDate.now();
+        this.fecha_nacimiento = fecha_nacimiento;
         this.nacionalidad = nacionalidad;
         this.titulo = titulo;
         this.equipo = equipo;
@@ -77,7 +77,7 @@ public class MiembroCuerpoTecnicoEntity {
             String titulo) {
         this.nombre = nombre;
         this.apellido = apellido;
-        this.fecha_nacimiento = LocalDate.now();
+        this.fecha_nacimiento = fecha_nacimiento;
         this.nacionalidad = nacionalidad;
         this.titulo = titulo;
     }

@@ -1,7 +1,8 @@
 package net.ausiasmarch.equipo_futbol.helper;
 
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 import java.time.LocalDate;
+
 public class DataGenerationHelper {
 
     private static final String[] aPlayerNames = {
@@ -66,15 +67,12 @@ public class DataGenerationHelper {
             "Alcorcón", "San Sebastian", "Parla", "Cornellà de Llobregat", "Toledo", "Burgos"
     };
 
-    private static final LocalDate[] aDates = {
-            parseDate("2013-11-06"), parseDate("2014-05-15"), parseDate("2015-09-23"),
-            parseDate("2016-03-10"), parseDate("2017-08-29"), parseDate("2018-02-14"),
-            parseDate("2019-06-01"), parseDate("2020-12-07"), parseDate("2021-04-18"),
-            parseDate("2022-10-25")
-    };
+    public static LocalDate getRandomDate() {
+        long minDay = LocalDate.of(1970, 1, 1).toEpochDay();
+        long maxDay = LocalDate.now().toEpochDay();
+        long randomDay = ThreadLocalRandom.current().nextLong(minDay, maxDay);
 
-    private static LocalDate parseDate(String dateString) {
-        return LocalDate.parse(dateString);
+        return LocalDate.ofEpochDay(randomDay);
     }
 
     private static final String[] aStadiumNames = {
@@ -126,10 +124,6 @@ public class DataGenerationHelper {
         return aCities[(int) (Math.random() * aCities.length)];
     }
 
-    public static LocalDate getRandomYear() {
-        return aDates[new Random().nextInt(aDates.length)];
-    }
-
     public static String getRandomStadium() {
         return aStadiumNames[(int) (Math.random() * aStadiumNames.length)];
     }
@@ -148,7 +142,7 @@ public class DataGenerationHelper {
         return cadenaSinAcentos;
     }
 
-     /*
+    /*
      * // Define arrays for different word categories
      * private static String[] articles = { "the", "a", "one" };
      * private static String[] nouns = { "cat", "dog", "book", "birds", "sun",
