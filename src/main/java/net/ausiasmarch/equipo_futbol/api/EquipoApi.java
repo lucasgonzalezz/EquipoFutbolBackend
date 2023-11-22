@@ -65,4 +65,10 @@ public class EquipoApi {
         return ResponseEntity.ok(oEquipoService.empty());
     }
 
+    @GetMapping("/byJugadoresNumberDesc")
+    public ResponseEntity<Page<EquipoEntity>> getPageByJugadoresNumberDesc(Pageable oPageable) {
+        return ResponseEntity.ok(oEquipoService.getPageByJugadoresNumberDesc(oPageable));
+    }
+
+
 }

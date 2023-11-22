@@ -110,4 +110,8 @@ public class EquipoService {
         return oEquipoRepository.count();
     }
 
+    public Page<EquipoEntity> getPageByJugadoresNumberDesc(Pageable oPageable) {
+        return oEquipoRepository.findEquiposByJugadoresNumberDescFilter(oPageable);
+    }
+
 }
